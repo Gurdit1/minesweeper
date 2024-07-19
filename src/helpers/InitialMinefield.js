@@ -27,7 +27,5 @@ export default function generateInitialMinefield(){
         }
     }
 
-    console.log(minefield);
-
     return minefield;
 }
