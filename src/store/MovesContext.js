@@ -18,7 +18,7 @@ export function MovesContextProvider({ children }){
 
     function leftClickTile(rowIndex, columnIndex){
         var minefield = computeCurrentMinefieldState();
-        if (minefield[rowIndex][columnIndex].state === TILE_STATE.Revealed){
+        if (minefield[rowIndex][columnIndex].state !== TILE_STATE.Hidden){
           return;
         }
         setMoves((prevMoves) => {return [
