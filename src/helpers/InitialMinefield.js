@@ -13,7 +13,7 @@ function generateSafeMinefield(){
     return minefield;
 }
 
-export default function generateInitialMinefield(){
+export default function generateMinefield(){
     var minefield = generateSafeMinefield();
     
     var minesLeft = 10; // TODO: Make this relate to table size/difficulty
