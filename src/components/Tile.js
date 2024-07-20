@@ -1,4 +1,6 @@
 import { TILE_TYPE, TILE_STATE } from "../helpers/values";
+import { MovesContext } from "../store/MovesContext.js";
+import { useContext } from "react";
 
 const revealedColour = "gray";
 
@@ -61,7 +63,10 @@ function calculateNumNearbyMines(tile, rowIndex, columnIndex, minefield){
     return count;
 }
 
-export default function Tile({ tile, rowIndex, columnIndex, onSelectTile, minefield}) {
+export default function Tile({ tile, rowIndex, columnIndex }) {
+    const { getMinefield, onSelectTile } = useContext(MovesContext)
+    const minefield = getMinefield();
+
     const emptyText = "N"; // Fallback text since empty text results in button being re-sized
     const numMines = calculateNumNearbyMines(tile, rowIndex, columnIndex, minefield);
 
