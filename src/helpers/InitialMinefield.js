@@ -17,7 +17,7 @@ export default function generateInitialMinefield(){
     var minefield = generateSafeMinefield();
     
     var minesLeft = 10; // TODO: Make this relate to table size/difficulty
-    while (minesLeft >= 0){
+    while (minesLeft > 0){
         var rowIndex = Math.floor(Math.random() * minefield.length);
         var columnIndex = Math.floor(Math.random() * minefield[0].length);
 
