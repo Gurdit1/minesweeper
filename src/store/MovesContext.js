@@ -32,13 +32,36 @@ export function MovesContextProvider({ children }){
         });
     }
 
-    function handleSelectTile(rowIndex, columnIndex){
-        leftClickTile(rowIndex, columnIndex)
+    function rightClickTile(e, rowIndex, columnIndex){
+        e.preventDefault();
+
+        var minefield = computeCurrentMinefieldState();
+        const selectedTile = minefield[rowIndex][columnIndex];
+        console.log(selectedTile);
+        let newState;
+        if (selectedTile.state === TILE_STATE.Hidden){
+            newState = TILE_STATE.Flagged;
+        }
+        else if (selectedTile.state === TILE_STATE.Flagged){
+            newState = TILE_STATE.Hidden; // Only hidden tiles should be flagged
+        }
+        else { return; }
+
+        setMoves((prevMoves) => {return [
+            ...prevMoves,
+            {
+              rowIndex: rowIndex,
+              columnIndex: columnIndex,
+              userState: newState
+            }
+          ]
+        });
     }
 
     const ctxValue = {
         getMinefield: computeCurrentMinefieldState,
-        onSelectTile: handleSelectTile
+        leftClickTile,
+        rightClickTile
     }
 
     return <MovesContext.Provider value={ctxValue}>{children}</MovesContext.Provider>
