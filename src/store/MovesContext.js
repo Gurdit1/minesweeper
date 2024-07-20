@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { TILE_STATE } from "../helpers/values";
 import generateInitialMinefield from "../helpers/InitialMinefield"
 
-export const MovesContext = createContext([{ rowIndex: -1, columnIndex: -1, userState: TILE_STATE.Hidden }]);
+export const MovesContext = createContext();
 
 export function MovesContextProvider({ children }){
     const [startingMinefield, setStartingMinefield] = useState(generateInitialMinefield())
@@ -22,7 +22,6 @@ export function MovesContextProvider({ children }){
         var minefield = computeCurrentMinefieldState();
         if (minefield[rowIndex][columnIndex].state === TILE_STATE.Revealed){
           return;
-          //
         }
         setMoves((prevMoves) => {return [
           ...prevMoves,

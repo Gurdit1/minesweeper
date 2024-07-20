@@ -6,7 +6,6 @@ import { MovesContextProvider } from './store/MovesContext.js';
 function App() {
 
   return (
-    
     <div className="App">
       <MovesContextProvider>
         <ScoreBoard maxFlags={10}/>
