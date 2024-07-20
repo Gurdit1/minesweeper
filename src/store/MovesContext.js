@@ -1,16 +1,16 @@
 import { createContext, useState } from "react";
 import { TILE_STATE } from "../helpers/values";
-import generateInitialMinefield from "../helpers/InitialMinefield"
+import generateMinefield from "../helpers/InitialMinefield"
 
 export const MovesContext = createContext();
 
 export function MovesContextProvider({ children }){
-    const [startingMinefield, setStartingMinefield] = useState(generateInitialMinefield())
+    const [startingMinefield, setStartingMinefield] = useState(generateMinefield())
     const [moves, setMoves] = useState([]) // Array of objects with fields: rowIndex, columnIndex, userState
 
     function restart(){
       setMoves([]);
-      setStartingMinefield(generateInitialMinefield());
+      setStartingMinefield(generateMinefield());
     }
 
     function computeCurrentMinefieldState(){
