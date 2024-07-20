@@ -64,8 +64,8 @@ function calculateNumNearbyMines(tile, rowIndex, columnIndex, minefield){
 }
 
 export default function Tile({ tile, rowIndex, columnIndex }) {
-    const { computeCurrentMinefieldState, onSelectTile } = useContext(MovesContext)
-    const minefield = computeCurrentMinefieldState();
+    const { getMinefield, onSelectTile } = useContext(MovesContext)
+    const minefield = getMinefield();
 
     const emptyText = "N"; // Fallback text since empty text results in button being re-sized
     const numMines = calculateNumNearbyMines(tile, rowIndex, columnIndex, minefield);

@@ -3,8 +3,8 @@ import Tile from "./Tile.js"
 import { MovesContext } from "../store/MovesContext.js";
 
 export default function Minefield(){
-    const { computeCurrentMinefieldState } = useContext(MovesContext)
-    const minefield = computeCurrentMinefieldState();
+    const { getMinefield } = useContext(MovesContext)
+    const minefield = getMinefield();
 
     return (
         <ol id="game-board">

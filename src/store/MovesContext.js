@@ -37,8 +37,7 @@ export function MovesContextProvider({ children }){
     }
 
     const ctxValue = {
-        moves,
-        computeCurrentMinefieldState,
+        getMinefield: computeCurrentMinefieldState,
         onSelectTile: handleSelectTile
     }
 
