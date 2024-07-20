@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { TILE_STATE } from "../helpers/values";
-import generateMinefield from "../helpers/InitialMinefield"
+import generateMinefield from "../helpers/GenerateMinefield"
 import { GAME_STATE, getGameState } from "../helpers/GameState";
 
 export const MovesContext = createContext();
