@@ -2,7 +2,9 @@ export default function ScoreBoard( { maxFlags } ){
     return (
         <div>
             Flags left: { maxFlags }
-            <br></br>
+            <br/>
+            Game in progress
+            <br/>
             <button>Restart</button>
         </div>
     )
