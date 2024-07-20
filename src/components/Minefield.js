@@ -7,7 +7,9 @@ export default function Minefield({ minefield, onSelectTile }){
                 <li key={rowIndex}>
                     <ol>
                         {row.map((tile, columnIndex) => (
-                            <Tile tile={tile} rowIndex={rowIndex} columnIndex={columnIndex} onSelectTile={onSelectTile} minefield={minefield}/>
+                            <li key={columnIndex}>
+                                <Tile tile={tile} rowIndex={rowIndex} columnIndex={columnIndex} onSelectTile={onSelectTile} minefield={minefield}/>
+                            </li>
                         ))}
                     </ol>
                 </li>

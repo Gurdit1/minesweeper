@@ -70,11 +70,9 @@ export default function Tile({ tile, rowIndex, columnIndex, onSelectTile, minefi
         textColour = revealedColour; // Hide text
     }
 
-    return <li key={columnIndex}>
-        <button style={{width: "4rem", height: "4rem", backgroundColor: getTileColour(tile), color: textColour}}
-            onClick={() => onSelectTile(rowIndex, columnIndex)}
-        >
-            {numMines ? (numMines === 0 ? emptyText : String(numMines)) : emptyText}
-        </button>
-    </li>
+    return <button style={{width: "4rem", height: "4rem", backgroundColor: getTileColour(tile), color: textColour}}
+        onClick={() => onSelectTile(rowIndex, columnIndex)}
+    >
+        {numMines ? (numMines === 0 ? emptyText : String(numMines)) : emptyText}
+    </button>
 }
