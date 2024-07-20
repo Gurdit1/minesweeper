@@ -6,7 +6,7 @@ export const MovesContext = createContext();
 
 export function MovesContextProvider({ children }){
     const [startingMinefield, setStartingMinefield] = useState(generateInitialMinefield())
-    const [moves, setMoves] = useState([]) //move is an object of fields: rowIndex, columnIndex, userState
+    const [moves, setMoves] = useState([]) // Array of objects with fields: rowIndex, columnIndex, userState
 
     function computeCurrentMinefieldState(){
         var minefield = [...startingMinefield].map((array) => [...array]);
@@ -15,8 +15,6 @@ export function MovesContextProvider({ children }){
         })
         return minefield;
     }
-    
-      // TODO: Detect game end if there is at least one tile of type MINE with state REVEALED
     
     function handleSelectTile(rowIndex, columnIndex){
         var minefield = computeCurrentMinefieldState();
