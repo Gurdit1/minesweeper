@@ -1,7 +1,7 @@
-export default function ScoreBoard( { minesLeft } ){
+export default function ScoreBoard( { maxFlags } ){
     return (
         <div>
-            Mines left: { minesLeft }
+            Flags left: { maxFlags }
             <br></br>
             <button>Restart</button>
         </div>

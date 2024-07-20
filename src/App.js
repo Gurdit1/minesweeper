@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <ScoreBoard minesLeft={10}/>
+      <ScoreBoard maxFlags={10}/>
       <Minefield minefield={computeCurrentMinefieldState()} onSelectTile={handleSelectTile}/>
     </div>
   );
