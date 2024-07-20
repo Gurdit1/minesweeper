@@ -15,10 +15,10 @@ export function MovesContextProvider({ children }){
         })
         return minefield;
     }
-    
-    function handleSelectTile(rowIndex, columnIndex){
+
+    function leftClickTile(rowIndex, columnIndex){
         var minefield = computeCurrentMinefieldState();
-        if (minefield[rowIndex][columnIndex].state === TILE_STATE.Revealed){
+        if (minefield[rowIndex][columnIndex].state !== TILE_STATE.Hidden){
           return;
         }
         setMoves((prevMoves) => {return [
@@ -29,13 +29,37 @@ export function MovesContextProvider({ children }){
             userState: TILE_STATE.Revealed
           }
         ]
-    
+        });
+    }
+
+    function rightClickTile(rowIndex, columnIndex){
+        var minefield = computeCurrentMinefieldState();
+        const selectedTile = minefield[rowIndex][columnIndex];
+
+        let newState;
+        if (selectedTile.state === TILE_STATE.Hidden){
+            newState = TILE_STATE.Flagged;
+        }
+        else if (selectedTile.state === TILE_STATE.Flagged){
+            newState = TILE_STATE.Hidden; // Only hidden tiles should be flagged
+        }
+        else { return; }
+
+        setMoves((prevMoves) => {return [
+            ...prevMoves,
+            {
+              rowIndex: rowIndex,
+              columnIndex: columnIndex,
+              userState: newState
+            }
+          ]
         });
     }
 
     const ctxValue = {
         getMinefield: computeCurrentMinefieldState,
-        onSelectTile: handleSelectTile
+        leftClickTile,
+        rightClickTile
     }
 
     return <MovesContext.Provider value={ctxValue}>{children}</MovesContext.Provider>

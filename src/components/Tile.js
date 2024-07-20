@@ -64,7 +64,7 @@ function calculateNumNearbyMines(tile, rowIndex, columnIndex, minefield){
 }
 
 export default function Tile({ tile, rowIndex, columnIndex }) {
-    const { getMinefield, onSelectTile } = useContext(MovesContext)
+    const { getMinefield, leftClickTile, rightClickTile } = useContext(MovesContext)
     const minefield = getMinefield();
 
     const emptyText = "N"; // Fallback text since empty text results in button being re-sized
@@ -76,7 +76,11 @@ export default function Tile({ tile, rowIndex, columnIndex }) {
     }
 
     return <button style={{width: "4rem", height: "4rem", backgroundColor: getTileColour(tile), color: textColour}}
-        onClick={() => onSelectTile(rowIndex, columnIndex)}
+        onClick={() => leftClickTile(rowIndex, columnIndex)}
+        onContextMenu={(e) => {
+            e.preventDefault();
+            rightClickTile(rowIndex, columnIndex)
+        }}
     >
         {numMines ? (numMines === 0 ? emptyText : String(numMines)) : emptyText}
     </button>
