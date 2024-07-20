@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { TILE_STATE } from "../helpers/values";
 import generateMinefield from "../helpers/InitialMinefield"
+import { GAME_STATE, getGameState } from "../helpers/GameState";
 
 export const MovesContext = createContext();
 
@@ -23,6 +24,7 @@ export function MovesContextProvider({ children }){
 
     function leftClickTile(rowIndex, columnIndex){
         var minefield = computeCurrentMinefieldState();
+        if (getGameState(minefield) !== GAME_STATE.Playing) { return; }
         if (minefield[rowIndex][columnIndex].state !== TILE_STATE.Hidden){
           return;
         }
@@ -39,6 +41,7 @@ export function MovesContextProvider({ children }){
 
     function rightClickTile(rowIndex, columnIndex){
         var minefield = computeCurrentMinefieldState();
+        if (getGameState(minefield) !== GAME_STATE.Playing) { return; }
         const selectedTile = minefield[rowIndex][columnIndex];
 
         let newState;
