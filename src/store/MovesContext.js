@@ -8,6 +8,11 @@ export function MovesContextProvider({ children }){
     const [startingMinefield, setStartingMinefield] = useState(generateInitialMinefield())
     const [moves, setMoves] = useState([]) // Array of objects with fields: rowIndex, columnIndex, userState
 
+    function restart(){
+      setMoves([]);
+      setStartingMinefield(generateInitialMinefield());
+    }
+
     function computeCurrentMinefieldState(){
         var minefield = [...startingMinefield].map((array) => [...array]);
         moves.forEach((move) => {
@@ -59,7 +64,8 @@ export function MovesContextProvider({ children }){
     const ctxValue = {
         getMinefield: computeCurrentMinefieldState,
         leftClickTile,
-        rightClickTile
+        rightClickTile,
+        restart
     }
 
     return <MovesContext.Provider value={ctxValue}>{children}</MovesContext.Provider>

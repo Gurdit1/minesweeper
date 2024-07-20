@@ -15,7 +15,7 @@ function countFlags(minefield){
 }
 
 export default function ScoreBoard( { maxFlags } ){
-    const { getMinefield } = useContext(MovesContext)
+    const { getMinefield, restart } = useContext(MovesContext)
     const minefield = getMinefield();
 
     return (
@@ -24,7 +24,7 @@ export default function ScoreBoard( { maxFlags } ){
             <br/>
             Game in progress
             <br/>
-            <button>Restart</button>
+            <button onClick={restart}>Restart</button>
         </div>
     )
 }
