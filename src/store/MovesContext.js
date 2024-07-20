@@ -15,8 +15,8 @@ export function MovesContextProvider({ children }){
         })
         return minefield;
     }
-    
-    function handleSelectTile(rowIndex, columnIndex){
+
+    function leftClickTile(rowIndex, columnIndex){
         var minefield = computeCurrentMinefieldState();
         if (minefield[rowIndex][columnIndex].state === TILE_STATE.Revealed){
           return;
@@ -29,8 +29,11 @@ export function MovesContextProvider({ children }){
             userState: TILE_STATE.Revealed
           }
         ]
-    
         });
+    }
+
+    function handleSelectTile(rowIndex, columnIndex){
+        leftClickTile(rowIndex, columnIndex)
     }
 
     const ctxValue = {
