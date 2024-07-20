@@ -77,7 +77,10 @@ export default function Tile({ tile, rowIndex, columnIndex }) {
 
     return <button style={{width: "4rem", height: "4rem", backgroundColor: getTileColour(tile), color: textColour}}
         onClick={() => leftClickTile(rowIndex, columnIndex)}
-        onContextMenu={(e) => rightClickTile(e, rowIndex, columnIndex)}
+        onContextMenu={(e) => {
+            e.preventDefault();
+            rightClickTile(rowIndex, columnIndex)
+        }}
     >
         {numMines ? (numMines === 0 ? emptyText : String(numMines)) : emptyText}
     </button>

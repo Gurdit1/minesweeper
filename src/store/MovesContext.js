@@ -32,12 +32,10 @@ export function MovesContextProvider({ children }){
         });
     }
 
-    function rightClickTile(e, rowIndex, columnIndex){
-        e.preventDefault();
-
+    function rightClickTile(rowIndex, columnIndex){
         var minefield = computeCurrentMinefieldState();
         const selectedTile = minefield[rowIndex][columnIndex];
-        console.log(selectedTile);
+
         let newState;
         if (selectedTile.state === TILE_STATE.Hidden){
             newState = TILE_STATE.Flagged;
