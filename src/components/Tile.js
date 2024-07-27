@@ -1,4 +1,4 @@
-import calculateNumNearbyMines from "../helpers/AdjacentTiles.js";
+import calculateNumAdjacentMines from "../helpers/AdjacentTiles.js";
 import { TILE_TYPE, TILE_STATE } from "../helpers/values";
 import { MovesContext } from "../store/MovesContext.js";
 import { useContext } from "react";
@@ -46,7 +46,7 @@ function getNumNearbyMines(tile, rowIndex, columnIndex, minefield){
         return undefined;
     }
 
-    return calculateNumNearbyMines(rowIndex, columnIndex, minefield);
+    return calculateNumAdjacentMines(rowIndex, columnIndex, minefield);
 }
 
 export default function Tile({ tile, rowIndex, columnIndex }) {

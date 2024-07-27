@@ -21,7 +21,7 @@ function getAdjacentTiles(rowIndex, columnIndex, minefield){
     return adjacentTiles;
 }
 
-export default function calculateNumNearbyMines(rowIndex, columnIndex, minefield){
+export default function calculateNumAdjacentMines(rowIndex, columnIndex, minefield){
     const adjacentTiles = getAdjacentTiles(rowIndex, columnIndex, minefield);
 
     let count = 0;
