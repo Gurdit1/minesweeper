@@ -1,9 +1,21 @@
 import { createContext, useState } from "react";
-import { TILE_STATE } from "../helpers/values";
+import { TILE_STATE, TILE_TYPE } from "../helpers/values";
 import generateMinefield from "../helpers/GenerateMinefield"
 import { GAME_STATE, getGameState } from "../helpers/GameState";
+import { calculateNumAdjacentMines, getAdjacentTiles } from "../helpers/AdjacentTiles.js";
 
 export const MovesContext = createContext();
+
+function getAdjacentEmptyTiles(move, minefield){
+  return getAdjacentTiles(move.rowIndex, move.columnIndex, minefield).
+    filter((adjacentTile) =>
+      calculateNumAdjacentMines(adjacentTile.rowIndex, adjacentTile.columnIndex, minefield)
+        == 0);
+}
+
+function getAdjacentEmptyHiddenTiles(move, minefield){
+  return getAdjacentEmptyTiles(move, minefield).filter((adjacentTile) => adjacentTile.tile.state === TILE_STATE.Hidden);
+}
 
 export function MovesContextProvider({ children }){
     const [startingMinefield, setStartingMinefield] = useState(generateMinefield())
@@ -18,6 +30,28 @@ export function MovesContextProvider({ children }){
         var minefield = [...startingMinefield].map((array) => [...array]);
         moves.forEach((move) => {
           minefield[move.rowIndex][move.columnIndex] = {...minefield[move.rowIndex][move.columnIndex], state: move.userState};
+
+          const selectedTile = minefield[move.rowIndex][move.columnIndex];
+          if (move.userState === TILE_STATE.Revealed && selectedTile.type === TILE_TYPE.Safe){
+            if (calculateNumAdjacentMines(move.rowIndex, move.columnIndex, minefield) === 0){
+              var disoveredEmptyTiles = getAdjacentEmptyHiddenTiles(move, minefield);
+              while (disoveredEmptyTiles.length > 0){
+                for (const disoveredEmptyTile of disoveredEmptyTiles){
+                  minefield[disoveredEmptyTile.rowIndex][disoveredEmptyTile.columnIndex] = {...minefield[disoveredEmptyTile.rowIndex][disoveredEmptyTile.columnIndex], state: TILE_STATE.Revealed};
+                }
+
+                const revealedTiles = [...disoveredEmptyTiles];
+                disoveredEmptyTiles = [];
+
+                for (const revealedTile of revealedTiles){
+                  const newDiscoveredEmptyTiles = getAdjacentEmptyHiddenTiles(revealedTile, minefield);;
+                  disoveredEmptyTiles = [...disoveredEmptyTiles, ...newDiscoveredEmptyTiles];
+
+                }
+              }
+
+            }
+          }
         })
         return minefield;
     }

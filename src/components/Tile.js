@@ -1,4 +1,4 @@
-import calculateNumAdjacentMines from "../helpers/AdjacentTiles.js";
+import { calculateNumAdjacentMines } from "../helpers/AdjacentTiles.js";
 import { TILE_TYPE, TILE_STATE } from "../helpers/values";
 import { MovesContext } from "../store/MovesContext.js";
 import { useContext } from "react";

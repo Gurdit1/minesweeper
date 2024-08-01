@@ -4,7 +4,7 @@ function isInRange(value, min, max){
     return value >= min && value < max;
 }
 
-function getAdjacentTiles(rowIndex, columnIndex, minefield){
+export function getAdjacentTiles(rowIndex, columnIndex, minefield){
     var adjacentTiles = [];
     for (let i = -1; i <= 1; i++){
         if (!isInRange(rowIndex + i, 0, minefield.length)) continue;
@@ -21,7 +21,7 @@ function getAdjacentTiles(rowIndex, columnIndex, minefield){
     return adjacentTiles;
 }
 
-export default function calculateNumAdjacentMines(rowIndex, columnIndex, minefield){
+export function calculateNumAdjacentMines(rowIndex, columnIndex, minefield){
     const adjacentTiles = getAdjacentTiles(rowIndex, columnIndex, minefield);
 
     let count = 0;
