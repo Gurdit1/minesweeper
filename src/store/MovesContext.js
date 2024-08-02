@@ -34,9 +34,14 @@ export function MovesContextProvider({ children }){
           const selectedTile = minefield[move.rowIndex][move.columnIndex];
           if (move.userState === TILE_STATE.Revealed && selectedTile.type === TILE_TYPE.Safe){
             if (calculateNumAdjacentMines(move.rowIndex, move.columnIndex, minefield) === 0){
-              var outerTiles = []
-
+              var outerTiles = [];
               var disoveredEmptyTiles = getAdjacentEmptyHiddenTiles(move, minefield);
+
+              // Store selected tile if at least one tile is a non-empty safe tile
+              if (disoveredEmptyTiles.length < 8){
+                outerTiles = [{rowIndex: move.rowIndex, columnIndex: move.columnIndex, tile: selectedTile}]
+              }
+
               while (disoveredEmptyTiles.length > 0){
                 for (const disoveredEmptyTile of disoveredEmptyTiles){
                   minefield[disoveredEmptyTile.rowIndex][disoveredEmptyTile.columnIndex] = {...minefield[disoveredEmptyTile.rowIndex][disoveredEmptyTile.columnIndex], state: TILE_STATE.Revealed};
