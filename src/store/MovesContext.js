@@ -34,6 +34,8 @@ export function MovesContextProvider({ children }){
           const selectedTile = minefield[move.rowIndex][move.columnIndex];
           if (move.userState === TILE_STATE.Revealed && selectedTile.type === TILE_TYPE.Safe){
             if (calculateNumAdjacentMines(move.rowIndex, move.columnIndex, minefield) === 0){
+              var outerTiles = []
+
               var disoveredEmptyTiles = getAdjacentEmptyHiddenTiles(move, minefield);
               while (disoveredEmptyTiles.length > 0){
                 for (const disoveredEmptyTile of disoveredEmptyTiles){
@@ -47,9 +49,19 @@ export function MovesContextProvider({ children }){
                   const newDiscoveredEmptyTiles = getAdjacentEmptyHiddenTiles(revealedTile, minefield);;
                   disoveredEmptyTiles = [...disoveredEmptyTiles, ...newDiscoveredEmptyTiles];
 
+                  if (newDiscoveredEmptyTiles.length < 8){
+                    outerTiles = [...outerTiles, revealedTile]
+                  }
                 }
               }
 
+              // Up to this point, only tiles with 0 adjacent mines are revealed so we must reveal all safe tiles that are adjacent to all border tiles
+              for (const outerTile of outerTiles){
+                const remainingTiles = getAdjacentTiles(outerTile.rowIndex, outerTile.columnIndex, minefield);
+                for (const remainingTile of remainingTiles){
+                  minefield[remainingTile.rowIndex][remainingTile.columnIndex] = {...minefield[remainingTile.rowIndex][remainingTile.columnIndex], state: TILE_STATE.Revealed};
+                }
+              }
             }
           }
         })
