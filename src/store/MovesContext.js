@@ -37,7 +37,7 @@ export function MovesContextProvider({ children }){
               var outerTiles = [];
               var disoveredEmptyTiles = getAdjacentEmptyHiddenTiles(move, minefield);
 
-              // Store selected tile if at least one tile is a non-empty safe tile
+              // Store selected tile if at least one adjacent tile is a non-empty safe tile
               if (disoveredEmptyTiles.length < 8){
                 outerTiles = [{rowIndex: move.rowIndex, columnIndex: move.columnIndex, tile: selectedTile}]
               }
