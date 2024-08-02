@@ -1,3 +1,4 @@
+import { calculateNumAdjacentMines } from "../helpers/AdjacentTiles.js";
 import { TILE_TYPE, TILE_STATE } from "../helpers/values";
 import { MovesContext } from "../store/MovesContext.js";
 import { useContext } from "react";
@@ -40,27 +41,12 @@ function getTileColour(tile) {
     }
 }
 
-function isInRange(value, min, max){
-    return value >= min && value < max;
-}
-
-function calculateNumNearbyMines(tile, rowIndex, columnIndex, minefield){
+function getNumNearbyMines(tile, rowIndex, columnIndex, minefield){
     if (tile.state !== TILE_STATE.Revealed){
         return undefined;
     }
 
-    let count = 0;
-    for (let i = -1; i <= 1; i++){
-        if (!isInRange(rowIndex + i, 0, minefield.length)) continue;
-        for (let j = -1; j <= 1; j++){
-            if (i === 0 && j === 0) continue; // Ignore self
-            if (!isInRange(columnIndex + j, 0, minefield[0].length)) continue;
-            if (minefield[rowIndex + i][columnIndex + j].type === TILE_TYPE.Mine){
-                count+=1;
-            }
-        }
-    }
-    return count;
+    return calculateNumAdjacentMines(rowIndex, columnIndex, minefield);
 }
 
 export default function Tile({ tile, rowIndex, columnIndex }) {
@@ -68,7 +54,7 @@ export default function Tile({ tile, rowIndex, columnIndex }) {
     const minefield = getMinefield();
 
     const emptyText = "N"; // Fallback text since empty text results in button being re-sized
-    const numMines = calculateNumNearbyMines(tile, rowIndex, columnIndex, minefield);
+    const numMines = getNumNearbyMines(tile, rowIndex, columnIndex, minefield);
 
     let textColour = getTextColour(tile);
     if (numMines === 0 && tile.state === TILE_STATE.Revealed && tile.type === TILE_TYPE.Safe){
