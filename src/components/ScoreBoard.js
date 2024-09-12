@@ -1,7 +1,7 @@
 import { GAME_STATE, getGameState } from "../helpers/GameState.js";
 import { TILE_STATE } from "../helpers/values.js";
 import { MovesContext } from "../store/MovesContext.js";
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 function getGameStateText(minefield) {
   const gameState = getGameState(minefield);
