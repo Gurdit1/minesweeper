@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Tile from "./Tile.js";
 import { MovesContext } from "../store/MovesContext.js";
 

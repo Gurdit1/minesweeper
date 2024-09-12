@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 import { TILE_STATE, TILE_TYPE } from "../helpers/values";
 import generateMinefield from "../helpers/GenerateMinefield";
 import { GAME_STATE, getGameState } from "../helpers/GameState";
