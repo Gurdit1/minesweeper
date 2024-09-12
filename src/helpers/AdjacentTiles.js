@@ -29,7 +29,7 @@ export function calculateNumAdjacentMines(rowIndex, columnIndex, minefield) {
 
   let count = 0;
   for (const adjacentTile of adjacentTiles) {
-    if (adjacentTile.tile.type == TILE_TYPE.Mine) {
+    if (adjacentTile.tile.type === TILE_TYPE.Mine) {
       count += 1;
     }
   }

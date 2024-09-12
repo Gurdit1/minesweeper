@@ -16,7 +16,7 @@ function getAdjacentEmptyTiles(move, minefield) {
         adjacentTile.rowIndex,
         adjacentTile.columnIndex,
         minefield,
-      ) == 0,
+      ) === 0,
   );
 }
 
