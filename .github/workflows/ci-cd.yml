@@ -42,7 +42,7 @@ jobs:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
         runs-on: ubuntu-latest
-        # if: github.ref == 'ref/heads/master'
+        if: github.ref == 'ref/heads/master'
         steps:
             - name: Download artefact
               uses: actions/download-artifact@v4
