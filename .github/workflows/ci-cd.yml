@@ -47,4 +47,4 @@ jobs:
                 name: production-files
                 path: ./build
             - name: Deploy to GitHub pages
-              uses: actions/deploy-pages@4
+              uses: actions/deploy-pages@v4
