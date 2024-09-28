@@ -15,6 +15,7 @@ jobs:
             - name: Test Project
               run: npm test
     build:
+        # TODO: Make build depend on test
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Code
