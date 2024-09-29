@@ -1,0 +1,57 @@
+name: CI/CD
+on: push
+jobs:
+    Test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+            - name: Install Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18.x
+            - name: Install Dependencies
+              run: npm install
+            - name: Test Project
+              run: npm test
+    Build:
+        needs: Test
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+            - name: Install Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18.x
+            - name: Install Dependencies
+              run: npm install
+            - name: Build Project
+              run: npm run build
+            - name: Upload artefact
+              uses: actions/upload-artifact@v4
+              with:
+                name: production-files
+                path: ./build
+    Deploy:
+        needs: Build
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        if: github.ref == 'ref/heads/master'
+        steps:
+            - name: Download artefact
+              uses: actions/download-artifact@v4
+              with:
+                name: production-files
+                path: ./build
+            - name: Upload artefact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                path: ./build
+            - name: Deploy to GitHub pages
+              uses: actions/deploy-pages@v4
